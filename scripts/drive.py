@@ -23,7 +23,7 @@ class Drive():
 
         if (collision.data == "blocked"):
             twist.linear.x = 0
-            twist.angular.z = 0
+            twist.angular.z = 1
 
         self.publisher.publish(twist)
         #rospy.loginfo(collision.data)
