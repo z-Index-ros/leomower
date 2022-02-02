@@ -48,7 +48,9 @@ class Infer():
         img_arr = np.frombuffer(image.data, dtype=np.uint8).reshape(image.height, image.width, -1)
         #image = PIL.Image.fromarray(img_arr)
 		
-        image = transforms.functional.to_tensor(img_arr).to(self.device).half()
+        #image = transforms.functional.to_tensor(img_arr).to(self.device).half()
+		#img=torch.tensor(np.array(img,dtype=np.float64))/255.0
+        image = torch.tensor(np.array(image.data,dtype=np.float64))/255.0
         image.sub_(self.mean[:, None, None]).div_(self.std[:, None, None])
         return image[None, ...]
         
@@ -60,14 +62,14 @@ class Infer():
         y = F.softmax(y, dim=1)
 
         prob_blocked = float(y.flatten()[0])
-        rospy.loginfo("Blocked probability %f" % prob_blocked)
+        #rospy.loginfo("Blocked probability %f" % prob_blocked)
         
         if prob_blocked < 0.5:
             collision = 'free'
         else:
             collision = 'blocked'
 
-        rospy.loginfo("Blocked probability %f -> %s" % prob_blocked, collision)
+        #rospy.loginfo("Blocked probability %f -> %s" % prob_blocked, collision)
 
         self.publisher.publish(collision)
 
