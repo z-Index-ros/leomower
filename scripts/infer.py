@@ -38,7 +38,7 @@ class Infer():
         normalize = torchvision.transforms.Normalize(self.mean, self.std)
 
         # subscribe to image topic
-        rospy.Subscriber('image_raw', String, self.callback)
+        rospy.Subscriber('/camera/image_raw', String, self.callback)
 
         # Create ROS publisher
         self.publisher = rospy.Publisher("collision", String, queue_size=1)
