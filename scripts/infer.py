@@ -9,15 +9,20 @@ import torchvision.transforms as transforms
 import torch.nn.functional as F
 import PIL.Image
 import torch.nn.functional as F
+import os
 
 
 class Infer():
 
     def __init__(self):
 
+        rospy.loginfo("Start working in ", os.getcwd())
+        modelPath = 'src/leomower/scripts/best_model_resnet18_free_blocked.pth'
+        rospy.loginfo("Loading ", modelPath)
+
         model = torchvision.models.resnet18(pretrained=False)
         model.fc = torch.nn.Linear(512, 2)
-        model.load_state_dict(torch.load('best_model_resnet18_free_blocked.pth'))
+        model.load_state_dict(torch.load(modelPath))
 
         self.device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
         model = model.to(self.device)
