@@ -16,9 +16,9 @@ class Infer():
 
     def __init__(self):
 
-        rospy.loginfo("Start working in ", os.getcwd())
+        rospy.loginfo("Start working in %s", os.getcwd())
         modelPath = 'src/leomower/scripts/best_model_resnet18_free_blocked.pth'
-        rospy.loginfo("Loading ", modelPath)
+        rospy.loginfo("Loading %s", modelPath)
 
         model = torchvision.models.resnet18(pretrained=False)
         model.fc = torch.nn.Linear(512, 2)
