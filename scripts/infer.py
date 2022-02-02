@@ -38,7 +38,7 @@ class Infer():
         normalize = torchvision.transforms.Normalize(self.mean, self.std)
 
         # subscribe to image topic
-        rospy.Subscriber('/camera/image_raw', String, self.callback)
+        rospy.Subscriber('/camera/image_raw', Image, self.callback)
 
         # Create ROS publisher
         self.publisher = rospy.Publisher("collision", String, queue_size=1)
@@ -63,6 +63,8 @@ class Infer():
             collision = 'free'
         else:
             collision = 'blocked'
+
+        rospy.loginfo("Blocked probability %f -> %s" % prob_blocked, collision)
 
         self.publisher.publish(collision)
 
