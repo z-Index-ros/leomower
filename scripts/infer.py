@@ -44,7 +44,7 @@ class Infer():
         self.publisher = rospy.Publisher("collision", String, queue_size=1)
 
     def preprocess(self, image):
-        image = PIL.Image.fromarray(image)
+        #image = PIL.Image.fromarray(image)
         image = transforms.functional.to_tensor(image).to(self.device).half()
         image.sub_(self.mean[:, None, None]).div_(self.std[:, None, None])
         return image[None, ...]
