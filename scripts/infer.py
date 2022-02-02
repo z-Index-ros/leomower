@@ -10,6 +10,7 @@ import torch.nn.functional as F
 import PIL.Image
 import torch.nn.functional as F
 import os
+import numpy as np
 
 
 class Infer():
@@ -44,8 +45,10 @@ class Infer():
         self.publisher = rospy.Publisher("collision", String, queue_size=1)
 
     def preprocess(self, image):
-        image = PIL.Image.fromarray(image.data)
-        image = transforms.functional.to_tensor(image).to(self.device).half()
+        img_arr = np.frombuffer(image.data, dtype=np.uint8).reshape(image.height, image.width, -1)
+        #image = PIL.Image.fromarray(img_arr)
+		
+        image = transforms.functional.to_tensor(img_arr).to(self.device).half()
         image.sub_(self.mean[:, None, None]).div_(self.std[:, None, None])
         return image[None, ...]
         
