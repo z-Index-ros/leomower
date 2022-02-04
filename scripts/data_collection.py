@@ -28,7 +28,7 @@ class DataCollection():
         image_path = os.path.join(directory, str(uuid1()) + '.jpg')
         bridge = CvBridge()
         cv_image = bridge.imgmsg_to_cv2(self.lastImage, desired_encoding='passthrough')
-        cv2.imwrite(image_path, cv_image.data)
+        cv2.imwrite(image_path, cv_image)
 
     def imagecallback(self, image):
         self.lastImage = image
