@@ -29,6 +29,8 @@ class DataCollection():
         bridge = CvBridge()
         cv_image = bridge.imgmsg_to_cv2(self.lastImage, desired_encoding='passthrough')
         cv2.imwrite(image_path, cv_image)
+        rospy.loginfo("%d free / %d blocked", len(os.listdir(free_dir)), len(os.listdir(blocked_dir)))
+
 
     def imagecallback(self, image):
         self.lastImage = image
