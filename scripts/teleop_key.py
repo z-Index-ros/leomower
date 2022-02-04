@@ -7,7 +7,7 @@ class TeleOp():
 
     def __init__(self):
         rospy.loginfo("Starting node")
-        self.pub = rospy.Publisher('/teleop_key', String, queue_size=1)
+        self.pub = rospy.Publisher('/leomower/teleop_key', String, queue_size=1)
         self.timer = rospy.Timer(rospy.Duration(0.1), self.time_callback)
 
 

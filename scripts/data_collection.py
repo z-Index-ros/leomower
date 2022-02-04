@@ -13,8 +13,8 @@ class DataCollection():
 
     def __init__(self):
         rospy.loginfo("Starting node")
-        rospy.Subscriber('/image_publisher_1643925502661090400/image_raw', Image, self.imagecallback)
-        rospy.Subscriber('/teleop_key', String, self.teleopcallback)
+        rospy.Subscriber('/camera/image_raw', Image, self.imagecallback)
+        rospy.Subscriber('/leomower/teleop_key', String, self.teleopcallback)
         rospy.loginfo("Start working in %s", os.getcwd())
         try:
             os.makedirs(free_dir)
