@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import rospy
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
@@ -21,9 +23,9 @@ class Infer():
         modelPath = 'src/leomower/scripts/best_model_resnet18_free_blocked.pth'
         rospy.loginfo("Loading %s", modelPath)
 
-        model = torchvision.models.resnet18(pretrained=False)
-        model.fc = torch.nn.Linear(512, 2)
-        model.load_state_dict(torch.load(modelPath))
+        self.model = torchvision.models.resnet18(pretrained=False)
+        self.model.fc = torch.nn.Linear(512, 2)
+        self.model.load_state_dict(torch.load(modelPath))
 
         """ self.device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
         model = model.to(self.device)
