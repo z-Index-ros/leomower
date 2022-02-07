@@ -45,7 +45,14 @@ class Infer():
         self.publisher = rospy.Publisher("collision", String, queue_size=1)
 
     def preprocess(self, image):
-        image = PIL.Image.fromarray(image.data)
+        img_arr = np.frombuffer(image.data, dtype=np.uint8)#.reshape(image.height, image.width, -1)
+        image = PIL.Image.fromarray(img_arr)#image.data)
+		
+        #image = transforms.functional.to_tensor(img_arr).to(self.device).half()
+		#img=torch.tensor(np.array(img,dtype=np.float64))/255.0
+
+
+        #image = PIL.Image.fromarray(image.data)
                 
         preprocess = transforms.Compose([
                 transforms.Resize(256),
