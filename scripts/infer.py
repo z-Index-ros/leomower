@@ -1,7 +1,6 @@
 import rospy
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
-from cv_bridge import CvBridge
 import torch
 import torchvision
 import torchvision.transforms as transforms
@@ -9,6 +8,7 @@ import torch.nn.functional as F
 import PIL.Image
 import torch.nn.functional as F
 import cv2
+from cv_bridge import CvBridge
 import os
 import numpy as np
 
