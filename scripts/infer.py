@@ -25,7 +25,7 @@ class Infer():
         model.fc = torch.nn.Linear(512, 2)
         model.load_state_dict(torch.load(modelPath))
 
-        self.device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
+        """ self.device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
         model = model.to(self.device)
         model = model.eval().half()
 
@@ -36,7 +36,7 @@ class Infer():
             self.mean = torch.Tensor([0.485, 0.456, 0.406]).half()
             self.std = torch.Tensor([0.229, 0.224, 0.225]).half()
 
-        normalize = torchvision.transforms.Normalize(self.mean, self.std)
+        normalize = torchvision.transforms.Normalize(self.mean, self.std) """
 
         # subscribe to image topic
         rospy.Subscriber('/camera/image_raw', Image, self.callback)
@@ -45,15 +45,20 @@ class Infer():
         self.publisher = rospy.Publisher("collision", String, queue_size=1)
 
     def preprocess(self, image):
-        img_arr = np.frombuffer(image.data, dtype=np.uint8).reshape(image.height, image.width, -1)
-        #image = PIL.Image.fromarray(img_arr)
-		
-        #image = transforms.functional.to_tensor(img_arr).to(self.device).half()
-		#img=torch.tensor(np.array(img,dtype=np.float64))/255.0
-        image = torch.tensor(np.array(image.data,dtype=np.float64))/255.0
-        image.sub_(self.mean[:, None, None]).div_(self.std[:, None, None])
-        return image[None, ...]
-        
+        image = PIL.Image.fromarray(image.data)
+                
+        preprocess = transforms.Compose([
+                transforms.Resize(256),
+                transforms.CenterCrop(224),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            )])
+
+        img_preprocessed = preprocess(image)
+        batch_img_tensor = torch.unsqueeze(img_preprocessed, 0)   
+        return batch_img_tensor     
 
     def callback(self, image):
 
