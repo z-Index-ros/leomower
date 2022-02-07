@@ -79,7 +79,7 @@ class Infer():
         y = F.softmax(y, dim=1)
 
         prob_blocked = float(y.flatten()[0])
-        #rospy.loginfo("Blocked probability %f" % prob_blocked)
+        rospy.loginfo("Blocked probability %f" % prob_blocked)
         
         if prob_blocked < 0.5:
             collision = 'free'
