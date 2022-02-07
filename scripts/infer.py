@@ -49,7 +49,7 @@ class Infer():
         #image = PIL.Image.fromarray(image.data).convert('RGB')
 
         bridge = CvBridge()
-        cv_image =  bridge.imgmsg_to_cv2(self.lastImage, desired_encoding='passthrough')
+        cv_image =  bridge.imgmsg_to_cv2(image, desired_encoding='passthrough')
 		
         #image = transforms.functional.to_tensor(img_arr).to(self.device).half()
 		#img=torch.tensor(np.array(img,dtype=np.float64))/255.0
