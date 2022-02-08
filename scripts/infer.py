@@ -25,7 +25,7 @@ class Infer():
 
         self.model = torchvision.models.resnet18(pretrained=False)
         self.model.fc = torch.nn.Linear(512, 2)
-        self.model.load_state_dict(torch.load(modelPath))
+        self.model.load_state_dict(torch.load(modelPath, map_location=torch.device('cpu')))
 
         """ self.device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
         model = model.to(self.device)
