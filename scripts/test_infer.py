@@ -13,7 +13,7 @@ import numpy as np
 model = torchvision.models.resnet18(pretrained=False)
 model.fc = torch.nn.Linear(512, 2)
 
-model.load_state_dict(torch.load('src\\leomower\\scripts\\best_model_resnet18_free_blocked.pth'))
+model.load_state_dict(torch.load('src\\leomower\\scripts\\best_model_resnet18_free_blocked.pth', map_location=torch.device('cpu')))
 
 #print(model)
 
@@ -30,8 +30,8 @@ else:
 
 normalize = torchvision.transforms.Normalize(mean, std) """
 
-#imageFilename = "blocked\\9ab0380e-8839-11ec-8cbc-e45f017bf0eb.jpg"
-imageFilename = "free\\8dbd95e2-8839-11ec-8cbc-e45f017bf0eb.jpg"
+imageFilename = "blocked\\9ab0380e-8839-11ec-8cbc-e45f017bf0eb.jpg"
+#imageFilename = "free\\8dbd95e2-8839-11ec-8cbc-e45f017bf0eb.jpg"
 
 image = PIL.Image.open(os.path.join("dataset", imageFilename)).convert('RGB')
 #image = PIL.Image.fromarray(image)
@@ -55,6 +55,7 @@ y = model(batch_img_tensor)
 y = model(x)
  """
 y = F.softmax(y, dim=1)
+#print(y)
 prob_blocked = float(y.flatten()[0])
 
 print("prob_blocked = ", prob_blocked)
