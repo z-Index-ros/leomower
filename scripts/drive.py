@@ -9,6 +9,9 @@ class Drive():
     def __init__(self):
 
         rospy.loginfo("Starting driver")
+        
+        self.twist = Twist()
+        
         # subscribe to /collision topic
         rospy.Subscriber('collision', String, self.callback)
 
@@ -16,19 +19,20 @@ class Drive():
         self.publisher = rospy.Publisher("cmd_vel", Twist, queue_size=1)
 
 
+
     def callback(self, collision):
-        twist = Twist()
+        
         if (collision.data == "free"):
-            twist.linear.x = 0.5
-            twist.angular.z = 0
+            self.twist.linear.x = 0.5
+            self.twist.angular.z = 0
 
-        if (collision.data == "blocked"):
-            twist.linear.x = 0
-            twist.angular.z = 1
+        elif (collision.data == "blocked"):
+            self.twist.linear.x = 0
+            self.twist.angular.z = 1
 
-        rospy.loginfo(twist)
+        rospy.loginfo(self.twist)
 
-        self.publisher.publish(twist)
+        self.publisher.publish(self.twist)
 
 def main():
     # init the node
