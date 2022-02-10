@@ -13,7 +13,7 @@ import cv2
 from cv_bridge import CvBridge
 import os
 import numpy as np
-
+from torch.autograd import Variable
 
 class Infer():
 
@@ -23,9 +23,21 @@ class Infer():
         modelPath = 'src/leomower/scripts/best_model_resnet18_free_blocked.pth'
         rospy.loginfo("Loading %s", modelPath)
 
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = torchvision.models.resnet18(pretrained=False)
         self.model.fc = torch.nn.Linear(512, 2)
-        self.model.load_state_dict(torch.load(modelPath, map_location=torch.device('cpu')))
+        self.model.load_state_dict(torch.load(modelPath, map_location=self.device))
+        self.model.eval()
+
+        self.transforms = transforms.Compose([
+                transforms.Resize(256),
+                transforms.CenterCrop(224),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            )])
+        self.bridge = CvBridge()
 
         """ self.device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
         model = model.to(self.device)
@@ -46,39 +58,43 @@ class Infer():
         # Create ROS publisher
         self.publisher = rospy.Publisher("collision", String, queue_size=1)
 
-    def preprocess(self, image):
+    def preprocess_image(self, image):
         #img_arr = np.frombuffer(image.data, dtype=np.uint8)#.reshape(image.height, image.width, -1)
         #image = PIL.Image.fromarray(image.data).convert('RGB')
 
-        bridge = CvBridge()
-        cv_image =  bridge.imgmsg_to_cv2(image, desired_encoding='passthrough')
+        cv_image =  self.bridge.imgmsg_to_cv2(image, desired_encoding='passthrough')
 		
         #image = transforms.functional.to_tensor(img_arr).to(self.device).half()
 		#img=torch.tensor(np.array(img,dtype=np.float64))/255.0
 
 
         image = PIL.Image.fromarray(cv_image)
-                
-        preprocess = transforms.Compose([
-                transforms.Resize(256),
-                transforms.CenterCrop(224),
-                transforms.ToTensor(),
-                transforms.Normalize(
-                mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225]
-            )])
+        return image        
+        #image_tensor = self.transforms(image).float()
+        #batch_img_tensor = torch.unsqueeze(img_preprocessed, 0)   
+        #return batch_img_tensor     
 
-        img_preprocessed = preprocess(image)
-        batch_img_tensor = torch.unsqueeze(img_preprocessed, 0)   
-        return batch_img_tensor     
+    def predict_image(self, image):
+        image_tensor = self.transforms(image).float()
+        image_tensor = image_tensor.unsqueeze(0)
+        input = Variable(image_tensor)
+        input = input.to(self.device)
+        y = self.model(input)
+        y = F.softmax(y, dim=1)
+        y = y.flatten()
+        prob_blocked = float(y[0])
+        return prob_blocked  
 
     def callback(self, image):
 
-        x = self.preprocess(image)
-        y = self.model(x)
-        y = F.softmax(y, dim=1)
+        #x = self.preprocess(image)
+        #y = self.model(x)
+        #y = F.softmax(y, dim=1)
 
-        prob_blocked = float(y.flatten()[0])
+        #prob_blocked = float(y.flatten()[0])
+
+        prob_blocked = self.predict_image(self.preprocess_image(image))
+
         rospy.loginfo("Blocked probability %f" % prob_blocked)
         
         if prob_blocked < 0.5:
