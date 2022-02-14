@@ -5,7 +5,7 @@ from sensor_msgs.msg import Image
 from datetime import datetime
 
 def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + 'I got an image at ' + datetime.now())
+    rospy.loginfo(rospy.get_caller_id() + 'I got an image at ' + str(datetime.now()))
 
 def listener():
 
