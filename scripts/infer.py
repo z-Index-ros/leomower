@@ -23,7 +23,7 @@ class Infer():
 
         rospy.loginfo("Start working in %s", os.getcwd())
 
-        self.blocked_threshold = 0.05
+        self.blocked_threshold = 0.15
 
         modelPath = 'src/leomower/scripts/best_model_resnet18_free_blocked.pth'
         rospy.loginfo("Loading %s", modelPath)
