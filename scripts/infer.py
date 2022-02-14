@@ -99,7 +99,7 @@ class Infer():
 
         rospy.loginfo(str(datetime.now()) + "> Blocked probability %f" % prob_blocked)
         
-        if prob_blocked < 0.5:
+        if prob_blocked < 0.3:
             collision = 'free'
         else:
             collision = 'blocked'

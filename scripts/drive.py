@@ -9,7 +9,7 @@ class Drive():
     def __init__(self):
 
         rospy.loginfo("Starting driver")
-        
+        self.speed = 0.1
         self.twist = Twist()
         
         # subscribe to /collision topic
@@ -18,19 +18,19 @@ class Drive():
         # Create ROS publisher
         self.publisher = rospy.Publisher("cmd_vel", Twist, queue_size=1)
 
-        self.timer = rospy.Timer(rospy.Duration(0.5), self.time_callback)
+        self.timer = rospy.Timer(rospy.Duration(0.2), self.time_callback)
 
 
 
     def callback(self, collision):
         
         if (collision.data == "free"):
-            self.twist.linear.x = 0.2
+            self.twist.linear.x = self.speed
             self.twist.angular.z = 0
 
         elif (collision.data == "blocked"):
             self.twist.linear.x = 0
-            self.twist.angular.z = 0.2
+            self.twist.angular.z = self.speed
 
         rospy.loginfo(self.twist)
 
