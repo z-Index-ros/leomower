@@ -83,7 +83,7 @@ class Infer():
         else:
             collision = 'blocked'
 
-        rospy.loginfo(str(datetime.now()) + "> Blocked probability %f -> %s" % prob_blocked, collision)
+        rospy.loginfo(str(datetime.now()) + f"> Blocked probability {prob_blocked} -> {collision}")
 
         self.publisher.publish(collision)
 
