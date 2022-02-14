@@ -14,6 +14,8 @@ from cv_bridge import CvBridge
 import os
 import numpy as np
 from torch.autograd import Variable
+from datetime import datetime
+
 
 class Infer():
 
@@ -87,22 +89,21 @@ class Infer():
 
     def callback(self, image):
 
-        #x = self.preprocess(image)
-        #y = self.model(x)
-        #y = F.softmax(y, dim=1)
+        rospy.loginfo(str(datetime.now()) + '> I got an image')
 
-        #prob_blocked = float(y.flatten()[0])
+        preprocessedimage = self.preprocess_image(image)
 
-        prob_blocked = self.predict_image(self.preprocess_image(image))
+        rospy.loginfo(str(datetime.now()) + "> Image pre-processed")
 
-        rospy.loginfo("Blocked probability %f" % prob_blocked)
+        prob_blocked = self.predict_image(preprocessedimage)
+
+        rospy.loginfo(str(datetime.now()) + "> Blocked probability %f" % prob_blocked)
         
         if prob_blocked < 0.5:
             collision = 'free'
         else:
             collision = 'blocked'
 
-        #rospy.loginfo("Blocked probability %f -> %s" % prob_blocked, collision)
 
         self.publisher.publish(collision)
 
