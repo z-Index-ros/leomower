@@ -23,7 +23,7 @@ class Infer():
 
         rospy.loginfo("Start working in %s", os.getcwd())
 
-        self.blocked_threshold = 0.2
+        self.blocked_threshold = 0.05
 
         modelPath = 'src/leomower/scripts/best_model_resnet18_free_blocked.pth'
         rospy.loginfo("Loading %s", modelPath)
@@ -77,13 +77,13 @@ class Infer():
 
         prob_blocked = self.predict_image(preprocessedimage)
 
-        rospy.loginfo(str(datetime.now()) + "> Blocked probability %f" % prob_blocked)
         
         if prob_blocked < self.blocked_threshold:
             collision = 'free'
         else:
             collision = 'blocked'
 
+        rospy.loginfo(str(datetime.now()) + "> Blocked probability %f -> %s" % prob_blocked, collision)
 
         self.publisher.publish(collision)
 
