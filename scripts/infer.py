@@ -22,6 +22,9 @@ class Infer():
     def __init__(self):
 
         rospy.loginfo("Start working in %s", os.getcwd())
+
+        self.blocked_threshold = 0.2
+
         modelPath = 'src/leomower/scripts/best_model_resnet18_free_blocked.pth'
         rospy.loginfo("Loading %s", modelPath)
 
@@ -41,19 +44,6 @@ class Infer():
             )])
         self.bridge = CvBridge()
 
-        """ self.device = torch.device('cuda' if torch.cuda.is_available() else "cpu")
-        model = model.to(self.device)
-        model = model.eval().half()
-
-        if torch.cuda.is_available():
-            self.mean = torch.Tensor([0.485, 0.456, 0.406]).cuda().half()
-            self.std = torch.Tensor([0.229, 0.224, 0.225]).cuda().half()
-        else:
-            self.mean = torch.Tensor([0.485, 0.456, 0.406]).half()
-            self.std = torch.Tensor([0.229, 0.224, 0.225]).half()
-
-        normalize = torchvision.transforms.Normalize(self.mean, self.std) """
-
         # subscribe to image topic
         rospy.Subscriber('/camera/image_raw', Image, self.callback)
 
@@ -61,20 +51,10 @@ class Infer():
         self.publisher = rospy.Publisher("collision", String, queue_size=1)
 
     def preprocess_image(self, image):
-        #img_arr = np.frombuffer(image.data, dtype=np.uint8)#.reshape(image.height, image.width, -1)
-        #image = PIL.Image.fromarray(image.data).convert('RGB')
 
         cv_image =  self.bridge.imgmsg_to_cv2(image, desired_encoding='passthrough')
-		
-        #image = transforms.functional.to_tensor(img_arr).to(self.device).half()
-		#img=torch.tensor(np.array(img,dtype=np.float64))/255.0
-
-
         image = PIL.Image.fromarray(cv_image)
         return image        
-        #image_tensor = self.transforms(image).float()
-        #batch_img_tensor = torch.unsqueeze(img_preprocessed, 0)   
-        #return batch_img_tensor     
 
     def predict_image(self, image):
         image_tensor = self.transforms(image).float()
@@ -99,7 +79,7 @@ class Infer():
 
         rospy.loginfo(str(datetime.now()) + "> Blocked probability %f" % prob_blocked)
         
-        if prob_blocked < 0.3:
+        if prob_blocked < self.blocked_threshold:
             collision = 'free'
         else:
             collision = 'blocked'
