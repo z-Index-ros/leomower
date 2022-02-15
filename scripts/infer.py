@@ -16,7 +16,8 @@ import numpy as np
 from torch.autograd import Variable
 from datetime import datetime
 
-
+# ROS node that subscribes to images topic, process to image inference and publishes the 
+# collision status (free or blocked)
 class Infer():
 
     def __init__(self):

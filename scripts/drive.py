@@ -4,25 +4,36 @@ import rospy
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist
 
+# ROS node that drives to rover according to the collision status published to the collision topic
+# when the status is "free" the rover goes straight
+# when the status is blocked the rove spin
+# the timer ensure that the Twist is published to the cmd_vel topic regularly, this will 
+# ensure a smooth move
 class Drive():
 
     def __init__(self):
 
         rospy.loginfo("Starting driver")
+
+        # set the rover speed (m/s)
         self.speed = 0.1
+
+        # prepare a Twist message
         self.twist = Twist()
         
         # subscribe to /collision topic
-        rospy.Subscriber('collision', String, self.callback)
+        rospy.Subscriber('collision', String, self.collision_callback)
 
         # Create ROS publisher
         self.publisher = rospy.Publisher("cmd_vel", Twist, queue_size=1)
 
-        self.timer = rospy.Timer(rospy.Duration(0.2), self.time_callback)
+        # setup the timer that publishes Twist on a regular rate
+        self.timer = rospy.Timer(rospy.Duration(0.2), self.timer_callback)
 
 
-
-    def callback(self, collision):
+    # set the Twist according to the collision status
+    # the Twist is "saved" in the class property and will be used by the timer
+    def collision_callback(self, collision):
         
         if (collision.data == "free"):
             self.twist.linear.x = self.speed
@@ -34,8 +45,8 @@ class Drive():
 
         rospy.loginfo(self.twist)
 
-
-    def time_callback(self, timer):
+    # publish on a regular rate the calculated Twist
+    def timer_callback(self, timer):
         self.publisher.publish(self.twist)
 
 
