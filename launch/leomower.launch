@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="leomower" type="infer.py" name="infer" ns="leomower" respawn="true" />
+    <node pkg="leomower" type="drive.py" name="drive" ns="leomower" respawn="true" />
+</launch>
