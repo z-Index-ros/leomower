@@ -45,10 +45,13 @@ class Infer():
         self.bridge = CvBridge()
 
         # subscribe to image topic
-        rospy.Subscriber('/camera/image_raw', Image, self.callback)
+        rospy.Subscriber('/camera/image_raw', Image, self.image_callback)
 
         # Create ROS publisher
-        self.publisher = rospy.Publisher("collision", String, queue_size=1)
+        self.publisher = rospy.Publisher("collision", String, queue_size=10)
+
+        self.timer = rospy.Timer(rospy.Duration(0.5), self.timer_callback)
+
 
     def preprocess_image(self, image):
 
@@ -67,11 +70,14 @@ class Infer():
         prob_blocked = float(y[0])
         return prob_blocked  
 
-    def callback(self, image):
+    def image_callback(self, image):
+        self.lastImage = image
+
+    def timer_callback(self, timer):
 
         rospy.loginfo(str(datetime.now()) + '> I got an image')
 
-        preprocessedimage = self.preprocess_image(image)
+        preprocessedimage = self.preprocess_image(self.lastImage)
 
         rospy.loginfo(str(datetime.now()) + "> Image pre-processed")
 
@@ -86,6 +92,8 @@ class Infer():
         rospy.loginfo(str(datetime.now()) + f"> Blocked probability {prob_blocked} -> {collision}")
 
         self.publisher.publish(collision)
+
+
 
 def main():
     # init the node
