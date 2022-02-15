@@ -25,7 +25,7 @@ class Infer():
         rospy.loginfo("Start working in %s", os.getcwd())
 
         # set the threshold to compare the "blocked probability", lower the value is, safer the pathway will be
-        self.blocked_threshold = 0.15
+        self.blocked_threshold = 0.20
 
         # inference rate (per second)
         self.infer_freq = 0.5
@@ -43,7 +43,7 @@ class Infer():
 
         # set the transormation that will be applied on the infered image aat runtime
         self.transforms = transforms.Compose([
-                transforms.Resize(256),
+                transforms.Resize(224),
                 transforms.CenterCrop(224),
                 transforms.ToTensor(),
                 transforms.Normalize(
