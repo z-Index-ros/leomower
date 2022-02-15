@@ -58,7 +58,7 @@ class Infer():
         rospy.Subscriber('/camera/image_raw', Image, self.image_callback)
 
         # Create ROS publisher
-        self.publisher = rospy.Publisher("collision", String, queue_size=10)
+        self.publisher = rospy.Publisher("/leomower/collision", String, queue_size=10)
 
         # the inference will be done on a frequence lower than the image are published on the topic
         # otherwise the topic will be flooded

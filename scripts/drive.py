@@ -22,7 +22,7 @@ class Drive():
         self.twist = Twist()
         
         # subscribe to /collision topic
-        rospy.Subscriber('collision', String, self.collision_callback)
+        rospy.Subscriber('/leomower/collision', String, self.collision_callback)
 
         # Create ROS publisher
         self.publisher = rospy.Publisher("cmd_vel", Twist, queue_size=1)
