@@ -25,7 +25,7 @@ class Drive():
         rospy.Subscriber('/leomower/collision', String, self.collision_callback)
 
         # Create ROS publisher
-        self.publisher = rospy.Publisher("cmd_vel", Twist, queue_size=1)
+        self.publisher = rospy.Publisher("/cmd_vel", Twist, queue_size=1)
 
         # setup the timer that publishes Twist on a regular rate
         self.timer = rospy.Timer(rospy.Duration(0.2), self.timer_callback)
