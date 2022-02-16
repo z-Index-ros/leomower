@@ -25,13 +25,13 @@ class Infer():
         rospy.loginfo("Start working in %s", os.getcwd())
 
         # set the threshold to compare the "blocked probability", lower the value is, safer the pathway will be
-        self.blocked_threshold = 0.20
+        self.blocked_threshold = rospy.get_param('blocked_threshold', 0.2)
 
         # inference rate (per second)
-        self.infer_freq = 0.5
+        self.infer_freq = rospy.get_param('infer_freq', 0.5)
 
         # set the path to the trained model (output from the train_model_resnet18.py)
-        state_dict_path = 'src/leomower/scripts/best_model_resnet18_free_blocked.pth'
+        state_dict_path = rospy.get_param('state_dict_path', 'src/leomower/scripts/best_model_resnet18_free_blocked.pth') 
         rospy.loginfo("Loading %s", state_dict_path)
 
         # prepare the model based on resnet18 and load the state dic

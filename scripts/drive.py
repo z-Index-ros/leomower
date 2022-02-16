@@ -16,7 +16,7 @@ class Drive():
         rospy.loginfo("Starting driver")
 
         # set the rover speed (m/s)
-        self.speed = 0.2
+        self.speed = rospy.get_param('speed', 0.2)
 
         # prepare a Twist message
         self.twist = Twist()

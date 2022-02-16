@@ -1,4 +1,9 @@
 <launch>    
+    <param name="leomower/blocked_threshold" type="int" value="0.2" />
+    <param name="leomower/infer_freq" type="int" value="0.5" />
+    <param name="leomower/state_dict_path" type="string" value="src/leomower/scripts/best_model_resnet18_free_blocked.pth" />
+    <param name="leomower/speed" type="int" value="0.2" />
+
     <node pkg="leomower" type="infer.py" name="infer" ns="leomower" respawn="true" />
     <node pkg="leomower" type="drive.py" name="drive" ns="leomower" respawn="true" />
 </launch>
