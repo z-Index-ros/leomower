@@ -35,11 +35,17 @@ This node waits for key strokes and publishes the key to the __/leomower/teleop_
  ``` bash
  rosrun leomower scripts/teleop_key.py
 ```
+
+## Shooting
+
+After a roaming session in the garden we returned back with about 120 __blocked__ images and 80 __free__ images like this:
+
 | Blocked      | Free |
 | ----------- | ----------- |
 | ![Blocked](1f027ee0-8bfb-11ec-8b93-00c0caafbf1c.jpg)      | ![Blocked](1b926316-8bfa-11ec-8b93-00c0caafbf1c.jpg)       |
 
 
+And now, time to [Train](train.md)
 
 ## Some used references
 
