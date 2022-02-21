@@ -8,8 +8,8 @@ As a learning exercice we're going to mimic an [Husqvarna Automower](https://www
 The steps are
 
 1. [prepare Leo with the code](#Preparation)
-2. [setup the prerequisites](#Python_Prerequisites)
-3. 
+2. [setup the prerequisites](#Python-Prerequisites)
+3. [Launc!](#launch-the-ROS-nodes)
 
 ## Preparation
 
@@ -40,7 +40,7 @@ devel\setup.bat
 source ./devel/setup.bash
 ```
 
-### Python Prerequisites
+## Python Prerequisites
 
 As the LeoMower uses PyTorch for inference, we have to install Pytorch.
 
@@ -51,10 +51,10 @@ pip3 install torch torchvision
 > Refer to [PyTorch](https://pytorch.org/get-started/locally/) documentation
 
 
+## Launch the ROS nodes
 
+Now we can launch the LeoMower ROS nodes (place your Leo in the center of your garden first :blush: ), and connect to Leo's Wifi
 
-
-Launch 
 ``` bash
 roslaunch leomower leomower.launch
 ```
