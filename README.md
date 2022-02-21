@@ -59,7 +59,7 @@ Now we can launch the LeoMower ROS nodes (place your Leo in the center of your g
 roslaunch leomower leomower.launch
 ```
 
-[![Watch the video](https://i.ytimg.com/vi/L12pAv4vds8/default.jpg)](https://youtu.be/L12pAv4vds8)
+https://youtu.be/L12pAv4vds8
 
 
 
