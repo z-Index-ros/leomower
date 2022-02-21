@@ -9,7 +9,8 @@ The steps are
 
 1. [prepare Leo with the code](#Preparation)
 2. [setup the prerequisites](#Python-Prerequisites)
-3. [Launch!](#launch-the-ROS-nodes)
+3. [3, 2, 1, Launch!](#launch-the-ROS-nodes)
+4. After that, we'll [explore](#explore-how-it-works) how it work
 
 ## Preparation
 
@@ -42,10 +43,12 @@ source ./devel/setup.bash
 
 ## Python Prerequisites
 
-As the LeoMower uses PyTorch for inference, we have to install Pytorch.
+As the LeoMower uses PyTorch for inference, we have to install Pytorch, plus other packages used in thee project:
 
 ``` bash
-pip3 install torch torchvision 
+sudo pip3 install torch torchvision 
+sudo pip3 install -U numpy
+sudo pip3 install readkeys
 ```
 
 > Refer to [PyTorch](https://pytorch.org/get-started/locally/) documentation
@@ -64,5 +67,13 @@ Here's what it should look like
 
 https://user-images.githubusercontent.com/15012463/155016426-3410192b-1dfd-4be2-9028-2d1da45a1008.mov
 
+## Explore how it works
 
+The first step is collecting data, then training the model before using the trained model in the realtime inference.
+
+The three steps are explained separately:
+
+* [Data Collection](./doc/data_collection.md)
+* [Train the model](./doc/train.md)
+* [Infer and drive](./doc/infer.md)
 
