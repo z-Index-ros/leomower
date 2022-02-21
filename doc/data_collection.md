@@ -47,7 +47,7 @@ After a roaming session in the garden we returned back with about 120 __blocked_
 
 And now, it's time to [Train](train.md)
 
-## Some used references
+## Some useful references
 
 * https://gist.github.com/rethink-imcmahon/77a1a4d5506258f3dc1f
 
