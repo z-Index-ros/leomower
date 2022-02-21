@@ -9,7 +9,7 @@ The steps are
 
 1. [prepare Leo with the code](#Preparation)
 2. [setup the prerequisites](#Python-Prerequisites)
-3. [Launc!](#launch-the-ROS-nodes)
+3. [Launch!](#launch-the-ROS-nodes)
 
 ## Preparation
 
@@ -58,6 +58,9 @@ Now we can launch the LeoMower ROS nodes (place your Leo in the center of your g
 ``` bash
 roslaunch leomower leomower.launch
 ```
+
+[![Watch the video](https://i.ytimg.com/vi/L12pAv4vds8/default.jpg)](https://youtu.be/L12pAv4vds8)
+
 
 
 
