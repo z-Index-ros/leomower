@@ -44,8 +44,9 @@ After a roaming session in the garden we returned back with about 120 __blocked_
 | ----------- | ----------- |
 | ![Blocked](1f027ee0-8bfb-11ec-8b93-00c0caafbf1c.jpg)      | ![Blocked](1b926316-8bfa-11ec-8b93-00c0caafbf1c.jpg)       |
 
+## Next step
 
-And now, it's time to [Train](train.md)
+And now, it's time to [Train the model](train.md)
 
 ## Some useful references
 

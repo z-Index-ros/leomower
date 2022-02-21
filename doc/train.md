@@ -2,9 +2,9 @@
 
 We'll use PyTorch to train the ResNet18 model.
 
-The `train_model_resnet18.py` program uses the images free/blocked that are located under the __dataset__ folder created a the previous data collection step.
+The `train_model_resnet18.py` program uses the ___free/blocked___ images that are located under the __dataset__ folder created a the previous [data collection step](data_collection.md).
 
-> Note that the train on a CPU will take looong time, so prefer transfering the images on a hardware equiped with a NVidia GPU and perform train on that GPU.
+> Note that the train on a CPU will take looong time, so prefer transfering the images on a hardware equiped with a NVidia GPU and perform the train on that GPU.
 
  Run the program:
 
@@ -16,7 +16,9 @@ The output is saved to a PyTorch [`state_dic`](https://pytorch.org/tutorials/beg
 
 > The output file is "__best_model_resnet18.pth__", get back this file to your LeoMower scripts folder.
 
-> The pictures collected in my garden and trained with the ResNet18 model are 'saved' in ths state_dic `best_model_resnet18_garden.pth`
+> The pictures collected in the garden and trained with the ResNet18 model are 'saved' in this state_dic `best_model_resnet18_garden.pth`
+
+## Next step
 
 `best_model_resnet18_garden.pth` is the state_dic used for [the inference at the next step](infer.md)
 
