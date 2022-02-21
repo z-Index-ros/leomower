@@ -60,7 +60,7 @@ roslaunch leomower leomower.launch
 ```
 
 
-
+Here's what it should look like
 
 https://user-images.githubusercontent.com/15012463/155016426-3410192b-1dfd-4be2-9028-2d1da45a1008.mov
 
