@@ -160,7 +160,7 @@ include_directories(
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-catkin_install_python(PROGRAMS scripts/talker.py scripts/listener.py scripts/listener_image.py scripts/drive.py scripts/infer.py
+catkin_install_python(PROGRAMS scripts/drive.py scripts/infer.py
 scripts/data_collection.py scripts/teleop_key.py  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
