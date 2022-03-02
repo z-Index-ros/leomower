@@ -28,7 +28,7 @@ cd ~/ros_ws/
 # windows
 catkin_make
 
-# Ubuntu
+# Ubuntu (sudo apt install python3-catkin-tools)
 catkin build
 ```
 
