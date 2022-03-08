@@ -1,5 +1,5 @@
-# Leo Mower
-As a learning exercice we're going to mimic an [Husqvarna Automower](https://www.husqvarna.com/fr/robots-tondeuses/automower315/) with the [Leo Rover](https://www.leorover.tech/). 
+# Web Leo Mower
+This branch is used to manipulate the leomower from a web page
 
 > The Husqvarna Automower playground is delimited by an electrical cable buried in the ground, the mower turns when it reaches the limit.
 
@@ -61,7 +61,11 @@ Now we can launch the LeoMower ROS nodes (place your Leo in the center of your g
 ``` bash
 roslaunch leomower leomower.launch
 ```
+## install the websocket rosbridge_suite
+Refer to [rosbridge_suite](http://wiki.ros.org/rosbridge_suite) to install and launch the websocket
 
+## Web page
+Now that your leomower package and the websocket are running you can open the index.html page on your favorite browser and click the start/stop buttons to enable the leomower movement
 
 Here's what it should look like
 
@@ -76,4 +80,5 @@ The three steps are explained separately:
 * [Data Collection](./doc/data_collection.md)
 * [Train the model](./doc/train.md)
 * [Infer and drive](./doc/infer.md)
+
 
