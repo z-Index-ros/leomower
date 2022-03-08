@@ -17,9 +17,12 @@ class Drive():
 
         # set the rover speed (m/s)
         self.speed = rospy.get_param('speed', 0.2)
-
+        self.on = False
         # prepare a Twist message
         self.twist = Twist()
+        
+        #subscribe to /on_off topic
+        rospy.Subscriber('/leomower/on_off', String, self.on_off_callback)
         
         # subscribe to /collision topic
         rospy.Subscriber('/leomower/collision', String, self.collision_callback)
@@ -47,7 +50,16 @@ class Drive():
 
     # publish on a regular rate the calculated Twist
     def timer_callback(self, timer):
-        self.publisher.publish(self.twist)
+    	if(self.on == True):
+        	self.publisher.publish(self.twist)
+     
+       
+    def on_off_callback(self, enable):
+        print(enable.data)
+        if (enable.data == "true"):
+            self.on = True
+        else:
+            self.on = False
 
 
 
