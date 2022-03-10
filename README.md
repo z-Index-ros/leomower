@@ -67,9 +67,8 @@ Refer to [rosbridge_suite](http://wiki.ros.org/rosbridge_suite) to install and l
 ## Web page
 Now that your leomower package and the websocket are running you can open the index.html page on your favorite browser and click the start/stop buttons to enable the leomower movement
 
-Here's what it should look like
-
-https://user-images.githubusercontent.com/15012463/155016426-3410192b-1dfd-4be2-9028-2d1da45a1008.mov
+## Host webPage on local server
+If you want to host your web page on a local server on your rover, you can download and configure [nginx](https://ubuntu.com/tutorials/install-and-configure-nginx#1-overview). 
 
 ## Explore how it works
 
