@@ -54,11 +54,20 @@ sudo pip3 install readkeys
 > Refer to [PyTorch](https://pytorch.org/get-started/locally/) documentation
 
 
+## Start leo in gazebo
+Add the leo_mower_gazebo/models folders to /home/.gazebo/models so that the models are added to the gazebo db
+you can now launch the simulation 
+
+```
+roslaunch leo_mower_gazebo golf_course.launch
+```
+
 ## Launch the ROS nodes
+open a new terminal 
 
-Now we can launch the LeoMower ROS nodes (place your Leo in the center of your garden first :blush: ), and connect to Leo's Wifi
-
-``` bash
+```
+catkin build
+source ./devel/setup.bash
 roslaunch leomower leomower.launch
 ```
 
