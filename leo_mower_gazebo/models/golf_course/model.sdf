@@ -9,7 +9,7 @@
      <collision name="terrain_collision">
         <geometry>
           <heightmap>
-            <uri>model://v2/dem/nice_border_500px.tif</uri>
+            <uri>model://golf_course/dem/nice_border_500px.tif</uri>
             <pos>0 0 -2.5</pos>
             <size>47 47 2.5</size>
           </heightmap>
@@ -20,11 +20,11 @@
         <geometry>
           <heightmap>
             <use_terrain_paging>false</use_terrain_paging>
-            <uri>model://v2/dem/nice_border_500px.tif</uri>
+            <uri>model://golf_course/dem/nice_border_500px.tif</uri>
             <pos>0 0 -2.5</pos>
             <size>47 47 2.5</size>
               <texture>
-                <diffuse>model://v2/dem/nice_border.png</diffuse>
+                <diffuse>model://golf_course/dem/nice_border.png</diffuse>
                 <size>47</size>
               </texture>
           </heightmap>
