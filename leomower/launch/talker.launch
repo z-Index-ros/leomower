@@ -1,0 +1,10 @@
+<launch>
+    <!-- <rosparam command="load" file="FILENAME" />
+     -->
+        <param name="leomower/say" type="str" value="hi" />
+
+    <node pkg="leomower" type="talker.py" name="talker" ns="leomower" respawn="true"/>
+    <node pkg="leomower" type="listener.py" name="listener" ns="leomower" respawn="true">
+        <param name="respond" type="str" value="world" />
+    </node>
+</launch>

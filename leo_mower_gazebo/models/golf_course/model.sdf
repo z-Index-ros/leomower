@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="golf_course">
+    <pose>0 0 0 0 0 0</pose>
+    <static>true</static>
+
+    <link name="golf_rectangle">
+     
+     <collision name="terrain_collision">
+        <geometry>
+          <heightmap>
+            <uri>model://golf_course/dem/nice_border_500px.tif</uri>
+            <pos>0 0 -2.5</pos>
+            <size>47 47 2.5</size>
+          </heightmap>
+        </geometry>
+      </collision>
+     
+      <visual name="terrain_visual">
+        <geometry>
+          <heightmap>
+            <use_terrain_paging>false</use_terrain_paging>
+            <uri>model://golf_course/dem/nice_border_500px.tif</uri>
+            <pos>0 0 -2.5</pos>
+            <size>47 47 2.5</size>
+              <texture>
+                <diffuse>model://golf_course/dem/nice_border.png</diffuse>
+                <size>47</size>
+              </texture>
+          </heightmap>
+        </geometry>
+      </visual>
+
+    </link>
+
+  </model>
+</sdf>
