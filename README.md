@@ -96,3 +96,7 @@ Now that the Gazebo environment is running, let's start the Leomower:
 roslaunch leomower leomower.launch
 ```
 
+
+
+https://user-images.githubusercontent.com/15012463/161132151-f17cab96-4ee3-4d42-9236-1c74138b91f4.mov
+
