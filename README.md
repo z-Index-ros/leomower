@@ -54,14 +54,6 @@ sudo pip3 install readkeys
 > Refer to [PyTorch](https://pytorch.org/get-started/locally/) documentation
 
 
-## Start leo in gazebo
-Add the leo_mower_gazebo/models folders to /home/.gazebo/models so that the models are added to the gazebo db
-you can now launch the simulation 
-
-```
-roslaunch leo_mower_gazebo golf_course.launch
-```
-
 ## Launch the ROS nodes
 open a new terminal 
 
@@ -85,4 +77,22 @@ The three steps are explained separately:
 * [Data Collection](./doc/data_collection.md)
 * [Train the model](./doc/train.md)
 * [Infer and drive](./doc/infer.md)
+
+## Start leo in gazebo
+
+We can start the Leomower in a Gazebo instance. For that we use the Leo description provided by the Leo team (look at the leo_description repository in <https://github.com/LeoRover>), and we use a world representing a golf course.
+
+
+Add the `leo_mower_gazebo/models` folders to `/home/.gazebo/models` so that the models are added to the gazebo db
+you can now launch the simulation. 
+
+You can now start the Gazebo session :
+``` bash
+roslaunch leo_mower_gazebo golf_course.launch
+```
+
+Now that the Gazebo environment is running, let's start the Leomower:
+``` bash
+roslaunch leomower leomower.launch
+```
 
